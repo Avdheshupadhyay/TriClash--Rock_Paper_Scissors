@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stone Paper Scissor Game</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background: #f3f9ff;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+    }
+    .btn-container {
+      margin: 20px 0;
+    }
+    button {
+      font-size: 18px;
+      margin: 10px;
+      padding: 12px 25px;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      background-color: #007bff;
+      color: white;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #222;
+    }
+    #score {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <h1>🪨📄✂️ Stone Paper Scissor</h1>
+  <div class="btn-container">
+    <button onclick="playGame('stone')">Stone</button>
+    <button onclick="playGame('paper')">Paper</button>
+    <button onclick="playGame('scissor')">Scissor</button>
+  </div>
+
+  <div id="result"></div>
+  <div id="score">You: 0 | Computer: 0</div>
+
+  <script>
+    let userScore = 0;
+    let compScore = 0;
+
+    function getComputerMove() {
+      const choices = ["stone", "paper", "scissor"];
+      const randomIndex = Math.floor(Math.random() * 3);
+      return choices[randomIndex];
+    }
+
+    function playGame(userMove) {
+      const compMove = getComputerMove();
+      let result = "";
+
+      if (userMove === compMove) {
+        result = `It's a draw! You both chose ${userMove}.`;
+      } else if (
+        (userMove === "stone" && compMove === "scissor") ||
+        (userMove === "paper" && compMove === "stone") ||
+        (userMove === "scissor" && compMove === "paper")
+      ) {
+        result = `🎉 you won! Computer chose ${compMove}.`;
+        userScore++;
+      } else {
+        result = `💻 Computer won! It chose ${compMove}.`;
+        compScore++;
+      }
+
+      document.getElementById("result").innerText = result;
+      document.getElementById("score").innerText = `You: ${userScore} | Computer: ${compScore}`;
+    }
+  </script>
+</body>
+</html>
